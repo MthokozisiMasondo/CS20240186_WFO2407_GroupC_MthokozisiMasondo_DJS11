@@ -5,7 +5,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        logo: ['Montserrat', 'sans-serif'],
+        text: ['Poppins', 'sans-serif'],
+        heading: ['Jura', 'sans-serif'],
+      },
+      backgroundImage: {
+        home: "url('./assets/hero-image.jpg')",
+      }
+    },
   },
   plugins: [],
 }
