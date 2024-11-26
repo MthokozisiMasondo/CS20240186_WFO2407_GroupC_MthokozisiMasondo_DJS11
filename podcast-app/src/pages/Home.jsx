@@ -24,7 +24,8 @@ function Home() {
 
     const availableShows = shows.map(show => {
    return ( 
-        <Link to={show.id} key={show.id}>
+    <div key={show.id}>
+        <Link to={`id/${show.id}`}>
 
             <div key={show.id} className="flex gap-4 w-full shadow-md bg-cyan-950 border-2 rounded-lg">
 
@@ -36,9 +37,9 @@ function Home() {
                     <h3 className="font-heading font-extrabold text-2xl text-gray-50">{show.title}</h3>
                     <p className="font-text text-xl text-gray-400">{`Seasons: ${show.seasons}`}</p>
                 </div>
-            </div>
-        
+            </div>   
         </Link>
+    </div>
     )})
 
 
