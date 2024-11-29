@@ -7,26 +7,19 @@ import Favourites from "../assets/favourites.png"
 // Header container
 function Header() {
     return (
-        <header className="w-auto flex items-center justify-between p-7">
+        <header className="w-full flex items-center justify-between p-7 flex-wrap">
 
-            <div className="w-20 m-4 flex flex-col items-center">
+            <div className="w-20 m-4 flex flex-col items-center sm:w-auto">
                 <Link to="/">
                     <img src={Logo} alt="Lalela Podcast Logo" className="w-14" />
                 </Link>
                 <h2 className="font-logo text-2xl font-semibold">LALELA</h2>
             </div>
 
-            <div className="flex gap-4">
-                <input type="text" placeholder="Search" className="border-2 border-sky-300 px-4 rounded-2xl w-64 h-12" />
-                <button className="border-2 border-sky-300 rounded-3xl">
-                    <img src={SearchIcon} alt="" className="w-8" />
-                </button>
-            </div>
-
-                <div className="flex flex-col items-center m-4">
+                <div className="flex flex-col items-center m-4 sm:w-auto">
                     <Link to="/favourites">
                         <button>
-                            <img src={Favourites} alt="" className="w-12" />
+                            <img src={Favourites} alt="Favourites" className="w-12" />
                         </button>
                     </Link>
                         <p className="font-text">Favourites</p>

@@ -39,8 +39,6 @@ function EpisodePlayer({ episode, onFavourite, onClose }) {
         // Update favourites
         localStorage.setItem('favouriteEpisodes', JSON.stringify(updatedFavourites))
         updateFavourites(updatedFavourites)
-
-        setFavourite(!isCurrentlyFavourite)
     }
 
     // Resetting state and load new audio when episode changes
@@ -133,23 +131,23 @@ return (
         
         <div className="flex flex-col justify-center items-center mb-4">
 
-                <div className="flex space-x-64">
+                <div className="flex flex-col sm:flex-row sm:space-x-16 md:space-x-16 lg:space-x-32 items-center justify-center">
                     {/* Favourite toggle button */}
                     <button onClick={toggleFavourite}><Star color="gray" fill={favourite ? "yellow" : "none"} /></button>
 
                     {/* Episode display */}
-                    <div className="flex flex-col justify center items-center space-y-4">
+                    <div className="flex flex-col justify center items-center space-y-2 sm:space-y-4">
                         <h2 className="font-heading font-extrabold text-2xl">{episode.title}</h2>
-                        <p className="font-text text-gray-600 text-xl">Episode {episode.episode}</p>
+                        <p className="font-text text-gray-600 text-xl sm:text-xl">Episode {episode.episode}</p>
                     </div>
                     
                     {/* Close button for the episode player */}
-                    <button onClick={onClose} className="text-2xl text-gray-600">X</button>
+                    <button onClick={onClose} className="text-2xl text-gray-600 sm:ml-auto">X</button>
 
                 </div>  
 
                 {/* Audio control buttons */}
-                <div className="space-x-24 mt-7">
+                <div className="space-x-10 sm:space-x-16 mt-7 flex justify-center items-center">
 
                     {/* Skip backward button */}
                     <button onClick={skipBackward}><SkipBack /></button>
@@ -170,11 +168,11 @@ return (
         </div>
 
         {/* Volume control */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center sm:space-x-4">
             <button>{volume === 0 ? <VolumeX /> : <Volume2 />}</button>
 
             {/* Volume slider */}
-            <input type="range" min="0" max="1" step="0.1" value={volume} onChange={handleVolume} className="w-full" />
+            <input type="range" min="0" max="1" step="0.1" value={volume} onChange={handleVolume} className="w-full sm:w-1/3" />
         </div>
 
     </div>
