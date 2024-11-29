@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 function Home() {
-    const [shows, setShows] = React.useState([])
-    const [error, setError] = React.useState()
-    const [loading, setLoading] = React.useState(false)
+    const [shows, setShows] = React.useState([]) // Stores list of podcast shows
+    const [error, setError] = React.useState() // Stores errors
+    const [loading, setLoading] = React.useState(false) // Tracks loading state
 
+    // Fetch podcast shows when component mounts
     React.useEffect(() => {
         async function loadShows() {
             setLoading(true)
             try {
-                const response = await fetch("https://podcast-api.netlify.app/")
+                const response = await fetch("https://podcast-api.netlify.app")
                 const showsData = await response.json()
                 setShows(showsData)
             } catch(error) {
@@ -22,11 +23,12 @@ function Home() {
         loadShows()
     }, [])
 
+    // Turning shows into card components
     const availableShows = shows.map(show => {
    return ( 
     <div key={show.id}>
+        {/* Link to individual podcast details page */}
         <Link to={`id/${show.id}`}>
-
             <div key={show.id} className="flex gap-4 w-full shadow-md bg-cyan-950 border-2 rounded-lg">
 
                 <div className="rounded-lg shadow-md overflow-hidden">
@@ -53,12 +55,14 @@ function Home() {
 
     return (
     <div className="bg-sky-500">
+        {/* Hero section with background image and slogan */}
         <div className="bg-home mt-7 w-full h-screen bg-cover bg-center">
             <p className="text-white font-heading text-5xl text-center p-14">"Podcasts for every vibe, every time!"</p>
         </div>
 
         <div>
         <h1 className=""></h1>
+            {/* Podcast shows grid */} 
             <div>
             { shows.length > 0 ? (
               <div className="grid grid-cols-3 gap-6 m-10">  

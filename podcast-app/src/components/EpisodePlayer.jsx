@@ -1,13 +1,6 @@
-import React, { useState, useRef, useEffect } from "react"
-import { 
-    Play,
-    Pause,
-    SkipForward,
-    SkipBack,
-    Star,
-    Volume2,
-    VolumeX
-} from "lucide-react"
+import React, { useState, useRef, useEffect, useContext } from "react"
+import { Play, Pause, SkipForward, SkipBack, Star, Volume2, VolumeX } from "lucide-react"
+import { FavouritesContext } from "../FavouritesContext"
 
 function EpisodePlayer({ episode, onFavourite, onClose }) {
     const [playing, setPlaying] = useState(false) // Playing audio
@@ -15,8 +8,40 @@ function EpisodePlayer({ episode, onFavourite, onClose }) {
     const [volume, setVolume] = useState(0.5) // Audio volume
     const [favourite, setFavourite] = useState(false) // Favourite episodes
     const audioRef = useRef(null) // Ref for audio element
+    const { favourites, updateFavourites } = useContext(FavouritesContext)
 
-    const audioElement = audioRef.current
+    useEffect(() => {
+        setFavourite(favourites.some(fav => fav.title === episode.title))
+    }, [favourites, episode])
+
+    const audioElement = audioRef.current // Reference to the audio element in the DOM
+
+    // Toggle favourite status using episode title as unique identifier
+    function toggleFavourite() {
+        const favourites = JSON.parse(localStorage.getItem('favourite') || '[]')
+        
+        // Check if this episode (by title) is already in favourites
+        const isCurrentlyFavourite = favourites.some(fav => fav.title === episode.title)
+        
+        let updatedFavourites
+        if (isCurrentlyFavourite) {
+            // Remove from favourites
+            updatedFavourites = favourites.filter(fav => fav.title !== episode.title)
+        } else {
+            // Add to favourites
+            const favouriteEpisode = {
+                title: episode.title,
+                episode: episode.episode,
+                file: episode.file
+            }
+            updatedFavourites = [...favourites, favouriteEpisode]
+        }
+        // Update favourites
+        localStorage.setItem('favouriteEpisodes', JSON.stringify(updatedFavourites))
+        updateFavourites(updatedFavourites)
+
+        setFavourite(!isCurrentlyFavourite)
+    }
 
     // Resetting state and load new audio when episode changes
     useEffect(() => {
@@ -32,7 +57,7 @@ function EpisodePlayer({ episode, onFavourite, onClose }) {
             audioElement.src = episode.file
             audioElement.load()
 
-    }, [episode])
+    }, [episode, audioElement])
 
     // Progress tracking
     useEffect(() => {
@@ -101,14 +126,6 @@ function EpisodePlayer({ episode, onFavourite, onClose }) {
         }
     }
    
-    // Toggle favourite status
-    function toggleFavourite() {
-        const newFavourite = !favourite
-
-        setFavourite(newFavourite)
-        onFavourite(episode, newFavourite)
-    }
-
 return (
     <div className="bg-white p-4 rounded-lg shadow-md">
         {/* Audio element with preload and end event handling */}

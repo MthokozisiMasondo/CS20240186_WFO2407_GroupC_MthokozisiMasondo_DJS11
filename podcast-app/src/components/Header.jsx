@@ -1,14 +1,18 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import Logo from "../assets/logo.png"
 import SearchIcon from "../assets/search.png"
-import Favourites from "../assets/favourites.png"
+import Favourites from "../assets/favourites.png" 
 
+// Header container
 function Header() {
     return (
         <header className="w-auto flex items-center justify-between p-7">
 
             <div className="w-20 m-4 flex flex-col items-center">
-                <img src={Logo} alt="Lalela Podcast Logo" className="w-14" />
+                <Link to="/">
+                    <img src={Logo} alt="Lalela Podcast Logo" className="w-14" />
+                </Link>
                 <h2 className="font-logo text-2xl font-semibold">LALELA</h2>
             </div>
 
@@ -17,14 +21,16 @@ function Header() {
                 <button className="border-2 border-sky-300 rounded-3xl">
                     <img src={SearchIcon} alt="" className="w-8" />
                 </button>
-                </div>
+            </div>
 
                 <div className="flex flex-col items-center m-4">
-                <button>
-                    <img src={Favourites} alt="" className="w-12" />
-                </button>
-                <p className="font-text">Favourites</p>
-            </div>
+                    <Link to="/favourites">
+                        <button>
+                            <img src={Favourites} alt="" className="w-12" />
+                        </button>
+                    </Link>
+                        <p className="font-text">Favourites</p>
+                </div> 
 
         </header>
     )
